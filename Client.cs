@@ -4,6 +4,7 @@
     public string Address { get; set; } // Адреса
     public string OrderID { get; set; } // ID замовлення
     public List<string> orders;
+    private static List<Client> clients = new List<Client>(); // Список клієнтів
 
     public Client()
     {

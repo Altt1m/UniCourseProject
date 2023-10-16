@@ -23,7 +23,17 @@ namespace Course_Project
             Client client = new Client();
 
             Order order = new Order(spec, client);
-            Console.ReadLine();
+
+            Specialist spec2 = new Specialist();
+            Client client2 = new Client();
+            Order order2 = new Order(spec2, client2);
+
+            Console.WriteLine(Order.GetAverageOrderCost());
+            Console.WriteLine(Order.GetLongestWorkPeriod());
+
+            Order.GetMostExpensiveOrder().Show();
+
+            
         }
     }
 }
