@@ -3,6 +3,9 @@
     public string FullName { get; set; } // ПІБ
     public string PhoneNumber { get; set; } // Номер телефону
 
+    /// <summary>
+    /// Презентування себе
+    /// </summary>
     public abstract void Presentation();
 
     public Person()

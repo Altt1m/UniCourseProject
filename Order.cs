@@ -1,6 +1,6 @@
 ﻿public class Order // Замовлення на ремонт та встановлення
 {
-    public string Address { get; set; }
+    public string Address { get; set; } // Адреса (береться у клієнта)
     public string ServiceType { get; set; } // Тип послуги (Встановлення/Ремонт)
     public string DeviceName { get; set; } // Назва пристрою (для встановлення/ремонту)
     public string DeviceVendor { get; set; } // Виробник пристрою
@@ -16,15 +16,17 @@
     private static List<Specialist> specialists = new List<Specialist>(); // Список майстрів
 
     // Композиція
-    public Specialist AssignedSpecialist { get; set; } // Призначений майстер
+    public Specialist MainSpecialist { get; set; } // Головний майстер
     public Client ClientInfo { get; set; } // Інформація про клієнта (зокрема адреса)
 
     public Order(Specialist spec, Client client) // Конструктор
     {
         if (spec.IsFree) // Якщо майстер вільний
         {
-            AssignedSpecialist = spec; // ...то він і назначається
+            MainSpecialist = spec; // ...то він і назначається
             specialists.Add(spec);
+            spec.IsFree = false; // Майстер перестає бути вільним
+            spec.SetAssignedOrder(this); // Майстру приписується замовлення
         }
         else // Якщо ні
         {
@@ -51,37 +53,149 @@
         spec.IsFree = false;
 
         orders.Add(this);
+        client.AddOrder(this);
+    }
+
+    /// <summary>
+    /// Додає спеціаліста до списку виконуючих замовлення
+    /// </summary>
+    /// <param name="spec"></param>
+    public void AddSpecialist(Specialist spec)
+    {
+        if (spec.IsFree) // Якщо майстер вільний
+        {
+            specialists.Add(spec); // ...то він додається до списку
+            spec.IsFree = false; // Майстер перестає бути вільним
+            spec.SetAssignedOrder(this); // Майстру приписується замовлення
+        }
+        else // Якщо ні
+        {
+            throw new Exception("Цей майстер наразі зайнятий."); // ...то видається помилка
+        }
+    }
+
+    /// <summary>
+    /// Виводить інформацію про замовлення
+    /// </summary>
+    public void Show()
+    {
+        Console.WriteLine($"\nАдреса: {Address}\n" +
+                        $"Вид послуги: {ServiceType}\n" +
+                        $"Назва прибору: {DeviceName}\n" +
+                        $"Виробник прибору: {DeviceVendor}\n" +
+                        $"Дата початку: {DateOfStart}\n" +
+                        $"Строк роботи: {WorkPeriod}\n" +
+                        $"Вартість: {Cost}\n" +
+                        $"ID: {OrderID}\n");
+    }
+
+    /// <summary>
+    /// 1. Список пристроїв для ремонту
+    /// </summary>
+    /// <returns>Список пристроїв на ремонт</returns>
+    public static List<Order> GetRepairOrders()
+    {
+        return repairOrders;
+    }
+
+    /// <summary>
+    /// Виводить список замовлень на ремонт
+    /// </summary>
+    public static void ShowRepairOrdersList()
+    {
+        foreach (Order order in repairOrders)
+        {
+            order.Show();
+        }
+        if (!repairOrders.Any())
+        {
+            Console.WriteLine("Немає замовлень на ремонт.");
+        }
+    }
+
+    /// <summary>
+    /// 2. Список пристроїв для встановлення
+    /// </summary>
+    /// <returns>Список замовлень на встановлення</returns>
+    public static List<Order> GetInstallOrders()
+    {
+        return installOrders;
+    }
+
+    /// <summary>
+    /// Виводить список замовлень на встановлення
+    /// </summary>
+    public static void ShowInstallOrdersList()
+    {
+        foreach (Order order in installOrders)
+        {
+            order.Show();      
+        }
+        if (!installOrders.Any())
+        {
+            Console.WriteLine("Немає замовлень на встановлення.");
+        }
+    }
+
+    /// <summary>
+    /// 3. Список клієнтів, які вибрали певний тип послуги
+    /// </summary>
+    /// <param name="serviceType">Тип послуги</param>
+    /// <returns>Список клієнтів, які обрали певний тип послуги</returns>
+    public static List<Client> GetClientsByServiceType(string serviceType)
+    {
+        return orders
+            .Where(order => order.ServiceType == serviceType)
+            .Select(order => order.ClientInfo)
+            .Distinct() // Щоб уникнути дублікатів клієнтів
+            .ToList();
+    }
+
+    /// <summary>
+    /// Виводить список клієнтів, які обрали певний тип послуги
+    /// </summary>
+    /// <param name="serviceType"></param>
+    public static void ShowClientsByServiceTypeList(string serviceType)
+    {
+        List<Client> clients = GetClientsByServiceType(serviceType);
+        foreach (Client client in clients)
+        {
+            client.Show();
+        }
+        if (!clients.Any())
+        {
+            Console.WriteLine($"Не знайдено жодного клієнта з типом послуги \"{serviceType}\"");
+        }
     }
 
 
-    public static double GetAverageOrderCost() // 4. Середня вартість замовлення
+    /// <summary>
+    /// 4. Середня вартість замовлень
+    /// </summary>
+    /// <returns>Середня вартість замовлень</returns>
+    public static double GetAverageOrderCost()
     {
         return orders.Average(o => o.Cost);
     }
 
-    public static int GetLongestWorkPeriod() // 5. Найдовший термін виконання роботи
+    /// <summary>
+    /// 5. Найдовший термін виконання роботи
+    /// </summary>
+    /// <returns>Найдовший термін виконання роботи</returns>
+    public static int GetLongestWorkPeriod()
     {
         return orders.OrderByDescending(o => o.WorkPeriod).First().WorkPeriod;
     }
 
-    public static Order GetMostExpensiveOrder() // 6. Найдорожче замовлення
+    /// <summary>
+    /// 6. Найдорожче замовлення
+    /// </summary>
+    /// <returns>Об'єкт класу Order з найбільшим Cost</returns>
+    public static Order GetMostExpensiveOrder()
     {
         return orders.OrderByDescending(o => o.Cost).First();
     }
 
-    public void Show()
-    {
-        Console.WriteLine($"\nАдреса: {this.Address}\n" +
-                        $"Вид послуги: {this.ServiceType}\n" +
-                        $"Назва прибору: {this.DeviceName}\n" +
-                        $"Виробник прибору: {this.DeviceVendor}\n" +
-                        $"Дата початку: {this.DateOfStart}\n" +
-                        $"Строк роботи: {this.WorkPeriod}\n" +
-                        $"Вартість: {this.Cost}\n" +
-                        $"ID: {this.OrderID}\n"); 
-    }
 
-    // Додайте інші методи та логіку для збереження і обробки даних.
-
-    // Конструктор і методи для завантаження / збереження даних в файли або базу даних.
+    
 }
