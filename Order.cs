@@ -22,30 +22,30 @@
 
     public Order(Specialist spec, Client client) // Конструктор
     {
-        if (spec.IsFree)
+        if (spec.IsFree) // Якщо майстер вільний
         {
-            AssignedSpecialist = spec;
+            AssignedSpecialist = spec; // ...то він і назначається
         }
-        else
+        else // Якщо ні
         {
-            throw new Exception("Specialist is not free now.");
+            throw new Exception("Цей майстер наразі зайнятий."); // ...то видається помилка
         }
         ClientInfo = client;
-        Address = ClientInfo.Address;
-        Console.Write("Service type: "); ServiceType = Console.ReadLine();
-        if (ServiceType == "Install")
+        Address = ClientInfo.Address; // Адреса замовлення береться з адреси клієнта
+        Console.Write("Вид послуги: "); ServiceType = Console.ReadLine();
+        if (ServiceType == "Встановлення")
         {
-            installOrders.Add(this);
+            installOrders.Add(this); // Якщо замовлення на встановлення
         }
-        else if (ServiceType == "Repair")
+        else if (ServiceType == "Ремонт")
         {
-            repairOrders.Add(this);
+            repairOrders.Add(this); // Якщо замовлення на ремонт
         }
-        Console.Write("Device name: "); DeviceName = Console.ReadLine();
-        Console.Write("Device vendor: "); DeviceVendor = Console.ReadLine();
-        Console.Write("Date of start: "); DateOfStart = Console.ReadLine();
-        Console.Write("Work period: "); WorkPeriod = Console.ReadLine();
-        Console.Write("Cost: "); Cost = Double.Parse(Console.ReadLine());
+        Console.Write("Назва прибору: "); DeviceName = Console.ReadLine();
+        Console.Write("Виробник прибору: "); DeviceVendor = Console.ReadLine();
+        Console.Write("Дата початку: "); DateOfStart = Console.ReadLine();
+        Console.Write("Строк роботи: "); WorkPeriod = Console.ReadLine();
+        Console.Write("Вартість: "); Cost = Double.Parse(Console.ReadLine());
         OrderID = "ORD" + ++orderAmount;
         client.OrderID = client.OrderID + ", " + OrderID;
         spec.IsFree = false;

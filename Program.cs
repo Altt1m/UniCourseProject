@@ -1,9 +1,14 @@
-﻿namespace Course_Project
+﻿using System.Text;
+
+namespace Course_Project
 {
     class Program
     {
         static void Main(string[] args)
         {
+            Console.OutputEncoding = Encoding.Unicode;
+            Console.InputEncoding = Encoding.Unicode;
+
             //       Запити до системи.
             // 1.Список пристроїв для ремонту.
             // 2.Список пристроїв для встановлення.

@@ -7,8 +7,8 @@
 
     public Person()
     {
-        Console.Write("Full name: "); FullName = Console.ReadLine();
-        Console.Write("Phone number: "); PhoneNumber = Console.ReadLine();
+        Console.Write("ПІБ: "); FullName = Console.ReadLine();
+        Console.Write("Номер телефону: "); PhoneNumber = Console.ReadLine();
     }
 
 }

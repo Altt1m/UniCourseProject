@@ -6,13 +6,13 @@
 
     public Specialist()
     {
-        Console.Write("Branch name: "); BranchName = Console.ReadLine();
-        Console.WriteLine($"Specialist {FullName} added.\n");
+        Console.Write("Назва філіалу: "); BranchName = Console.ReadLine();
+        Console.WriteLine($"Майстер {FullName} доданий.\n");
     }
 
     override public void Presentation()
     {
-        Console.WriteLine($"My name is {FullName}. I'm a specialist working in {BranchName}.\n");
+        Console.WriteLine($"Мене звати {FullName}. Я працюю майстром у {BranchName}.\n");
     }
 
 }

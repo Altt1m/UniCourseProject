@@ -7,12 +7,12 @@
 
     public Client()
     {
-        Console.Write("Address: "); Address = Console.ReadLine();
-        Console.WriteLine($"Client {FullName} added.\n");
+        Console.Write("Адреса: "); Address = Console.ReadLine();
+        Console.WriteLine($"Клієнт {FullName} доданий.\n");
     }
 
     override public void Presentation()
     {
-        Console.WriteLine($"My name is {FullName}. I'm just a client.\n");
+        Console.WriteLine($"Мене звати {FullName}. Я всього лише клієнт.\n");
     }
 }
