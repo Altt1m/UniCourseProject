@@ -127,18 +127,49 @@ namespace Course_Project
                                     Client selectedClient = Client.GetClientsList()[clientNum - 1];
 
                                     new Order(selectedSpecialist, selectedClient);
-                                    break;
+                                    break; // Вихід з циклу кейса 3
                                 }
 
                             } // Цикл кейсу 3
 
                             break; // Кінець кейсу
+
+                        // Тут кейси
+                        case 7: // Найдовший термін виконання замовлення
+                            Console.Clear();
+                            if (!Order.GetOrdersList().Any())
+                            {
+                                Console.WriteLine("Спочатку оформіть хоча б одне замовлення!\n");
+                                break;
+                            }
+                            else
+                            {
+                                Console.WriteLine($"Найдовший термін виконання це {Order.GetLongestWorkPeriod()} день(-ів).\n");
+                                break;
+                            }
+                            break;
+                        case 8: // Найдорожче замовлення
+                            Console.Clear();
+                            if (!Order.GetOrdersList().Any())
+                            {
+                                Console.WriteLine("Спочатку оформіть хоча б одне замовлення!\n");
+                                break;
+                            }
+                            else
+                            {
+                                Console.WriteLine($"Найдорожчим є замовлення {Order.GetMostExpensiveOrder().OrderID}.\n" +
+                                                  $"Його вартість складає {Order.GetMostExpensiveOrder().Cost} грн.\n");
+                                break;
+                            }
+  
+                            
+                        
                         default:
                             Console.Clear();
                             Console.WriteLine("Not yet developed.\n");
                             break;
 
-                        // Тут кейси
+                        
 
                     } // Світч
                     continue; // Повтор головного циклу

@@ -18,4 +18,10 @@
         Console.Write("Номер телефону: "); PhoneNumber = Console.ReadLine();
     }
 
+    public void Show()
+    {
+        Console.WriteLine($"ПІБ: {FullName}\n" +
+                          $"Номер телефону: {PhoneNumber}\n");
+    }
+
 }

@@ -2,7 +2,7 @@
 {
     // На одного клієнта може приходитися багато замовлень, але на замовлення лише один клієнт
     public string Address { get; set; } // Адреса
-    public string OrderID { get; set; } = "Ще немає"; // ID замовлення
+    public string OrderID { get; set; } // ID замовлення
 
     private List<Order> orders = new List<Order>(); // Список замовлень клієнта
 

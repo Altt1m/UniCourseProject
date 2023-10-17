@@ -55,9 +55,16 @@
         int index = 1;
         foreach (Specialist spec in specs)
         {
-            Console.WriteLine($"Майстер №{index}");
-            spec.Show();
-            index++;
+            if (spec.IsFree)
+            {
+                Console.WriteLine($"Майстер №{index}");
+                spec.Show();
+                index++;
+            }
+        }
+        if (index == 1)
+        {
+
         }
     }
 

@@ -65,7 +65,7 @@
         }
 
         Console.Clear();
-        Console.WriteLine($"Замовлення {OrderID} створено.");
+        Console.WriteLine($"Замовлення {OrderID} створено.\n");
 
         orders.Add(this);
         client.AddOrder(this);
@@ -102,6 +102,11 @@
                         $"Строк роботи: {WorkPeriod}\n" +
                         $"Вартість: {Cost}\n" +
                         $"ID: {OrderID}\n");
+    }
+
+    public static List<Order> GetOrdersList()
+    {
+        return orders;
     }
 
     /// <summary>
