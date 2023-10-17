@@ -5,6 +5,7 @@
     public Boolean IsFree { get; set; } = true;
 
     private Order assignedOrder;
+    private static List<Specialist> specs = new List<Specialist>(); // Статичний список майстрів
 
     /// <summary>
     /// Конструктор за замовчуванням
@@ -12,7 +13,9 @@
     public Specialist()
     {
         Console.Write("Назва філіалу: "); BranchName = Console.ReadLine();
+        Console.Clear();
         Console.WriteLine($"Майстер {FullName} доданий.\n");
+        specs.Add(this);
     }
 
     /// <summary>
@@ -26,11 +29,36 @@
         FullName = fN;
         PhoneNumber = pNum;
         BranchName = bN;
+        specs.Add(this);
     }
 
-    override public void Presentation()
+    public void Show()
     {
-        Console.WriteLine($"Мене звати {FullName}. Я працюю майстром у {BranchName}.\n");
+        string occupied = "Ні";
+        if (!IsFree)
+        {
+            occupied = "Так";
+        }
+        Console.WriteLine($"ПІБ: {FullName}\n" +
+                          $"Номер телефону: {PhoneNumber}\n" +
+                          $"Назва філіалу: {BranchName}\n" +
+                          $"Зайнятий: {occupied}\n");
+    }
+
+    public static List<Specialist> GetSpecsList()
+    {
+        return specs;
+    }
+
+    public static void ShowSpecsList()
+    {
+        int index = 1;
+        foreach (Specialist spec in specs)
+        {
+            Console.WriteLine($"Майстер №{index}");
+            spec.Show();
+            index++;
+        }
     }
 
     /// <summary>
@@ -41,5 +69,12 @@
     {
         assignedOrder = order;
     }
+
+    override public void Presentation()
+    {
+        Console.WriteLine($"Мене звати {FullName}. Я працюю майстром у {BranchName}.\n");
+    }
+
+    
 
 }

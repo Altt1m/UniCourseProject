@@ -64,6 +64,9 @@
             client.OrderID = OrderID;
         }
 
+        Console.Clear();
+        Console.WriteLine($"Замовлення {OrderID} створено.");
+
         orders.Add(this);
         client.AddOrder(this);
     }

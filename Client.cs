@@ -2,7 +2,7 @@
 {
     // На одного клієнта може приходитися багато замовлень, але на замовлення лише один клієнт
     public string Address { get; set; } // Адреса
-    public string OrderID { get; set; } // ID замовлення
+    public string OrderID { get; set; } = "Ще немає"; // ID замовлення
 
     private List<Order> orders = new List<Order>(); // Список замовлень клієнта
 
@@ -14,6 +14,7 @@
     public Client()
     {
         Console.Write("Адреса: "); Address = Console.ReadLine();
+        Console.Clear();
         Console.WriteLine($"Клієнт {FullName} доданий.\n");
 
         clients.Add(this);
@@ -30,11 +31,32 @@
         FullName = fN;
         PhoneNumber = pNum;
         Address = addr;
+
+        clients.Add(this);
     }
 
-    override public void Presentation()
+    public void Show()
     {
-        Console.WriteLine($"Мене звати {FullName}. Я всього лише клієнт.\n");
+        Console.WriteLine($"ПІБ: {FullName}\n" +
+                        $"Номер телефону: {PhoneNumber}\n" +
+                        $"Адреса: {Address}\n" +
+                        $"ID замовлення: {OrderID}\n");
+    }
+
+    public static List<Client> GetClientsList()
+    {
+        return clients;
+    }
+
+    public static void ShowClientsList()
+    {
+        int index = 1;
+        foreach (Client client in clients)
+        {
+            Console.WriteLine($"Клієнт №{index}");
+            client.Show();
+            index++;
+        }
     }
 
     /// <summary>
@@ -46,11 +68,8 @@
         orders.Add(order);
     }
 
-    public void Show()
+    override public void Presentation()
     {
-        Console.WriteLine($"\nПІБ: {FullName}\n" +
-                        $"Номер телефону: {PhoneNumber}\n" +
-                        $"Адреса: {Address}\n" +
-                        $"ID замовлення: {OrderID}\n");
+        Console.WriteLine($"Мене звати {FullName}. Я всього лише клієнт.\n");
     }
 }
