@@ -6,10 +6,26 @@
 
     private Order assignedOrder;
 
+    /// <summary>
+    /// Конструктор за замовчуванням
+    /// </summary>
     public Specialist()
     {
         Console.Write("Назва філіалу: "); BranchName = Console.ReadLine();
         Console.WriteLine($"Майстер {FullName} доданий.\n");
+    }
+
+    /// <summary>
+    /// Конструктор з параметрами
+    /// </summary>
+    /// <param name="fN">ПІБ</param>
+    /// <param name="pNum">Номер телефону</param>
+    /// <param name="bN">Назва філіалу</param>
+    public Specialist(string fN, string pNum, string bN)
+    {
+        FullName = fN;
+        PhoneNumber = pNum;
+        BranchName = bN;
     }
 
     override public void Presentation()

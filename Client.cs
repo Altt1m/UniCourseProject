@@ -8,12 +8,28 @@
 
     private static List<Client> clients = new List<Client>(); // Список клієнтів
 
+    /// <summary>
+    /// Конструктор за замовчуванням
+    /// </summary>
     public Client()
     {
         Console.Write("Адреса: "); Address = Console.ReadLine();
         Console.WriteLine($"Клієнт {FullName} доданий.\n");
 
         clients.Add(this);
+    }
+
+    /// <summary>
+    /// Конструктор з параметрами
+    /// </summary>
+    /// <param name="fN">ПІБ</param>
+    /// <param name="pNum">Номер телефону</param>
+    /// <param name="addr">Адреса</param>
+    public Client(string fN, string pNum, string addr)
+    {
+        FullName = fN;
+        PhoneNumber = pNum;
+        Address = addr;
     }
 
     override public void Presentation()

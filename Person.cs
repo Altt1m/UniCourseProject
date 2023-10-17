@@ -8,6 +8,9 @@
     /// </summary>
     public abstract void Presentation();
 
+    /// <summary>
+    /// Конструктор за замовчуванням
+    /// </summary>
     public Person()
     {
         Console.Write("ПІБ: "); FullName = Console.ReadLine();

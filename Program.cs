@@ -18,20 +18,24 @@ namespace Course_Project
             // 6.Пристрій, який має найбільшу вартість.
 
 
-            Specialist spec = new Specialist();
+            Specialist spec = new Specialist("Жмишенко Михайло Петрович", "+38001", "Енергогаз Україна");
             spec.Presentation();
-            Client client = new Client();
+            Client client = new Client("Малевіч Адам Кропивницький", "+38002", "Zabuvko 10");
 
             Order order = new Order(spec, client);
 
+            Console.WriteLine();
             Specialist spec2 = new Specialist();
             Client client2 = new Client();
             Order order2 = new Order(spec2, client2);
 
-            Console.WriteLine(Order.GetAverageOrderCost());
-            Console.WriteLine(Order.GetLongestWorkPeriod());
-
-            Order.GetMostExpensiveOrder().Show();
+            Console.WriteLine();
+            Order.ShowRepairOrdersList(); // 1.
+            Order.ShowInstallOrdersList(); // 2.
+            Order.ShowClientsByServiceTypeList("Встановлення"); // 3.
+            Console.WriteLine(Order.GetAverageOrderCost()); // 4.
+            Console.WriteLine(Order.GetLongestWorkPeriod()); // 5.
+            Order.GetMostExpensiveOrder().Show(); // 6.
 
 
         }

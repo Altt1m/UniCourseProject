@@ -19,6 +19,12 @@
     public Specialist MainSpecialist { get; set; } // Головний майстер
     public Client ClientInfo { get; set; } // Інформація про клієнта (зокрема адреса)
 
+    /// <summary>
+    /// Конструктор з параметрами
+    /// </summary>
+    /// <param name="spec">Спеціаліст (об'єкт)</param>
+    /// <param name="client">Клієнт (об'єкт)</param>
+    /// <exception cref="Exception">Майстер зайнятий</exception>
     public Order(Specialist spec, Client client) // Конструктор
     {
         if (spec.IsFree) // Якщо майстер вільний
@@ -49,8 +55,14 @@
         Console.Write("Строк роботи (у днях): "); WorkPeriod = Int32.Parse(Console.ReadLine());
         Console.Write("Вартість: "); Cost = Double.Parse(Console.ReadLine());
         OrderID = "ORD" + ++orderAmount;
-        client.OrderID = client.OrderID + ", " + OrderID;
-        spec.IsFree = false;
+        if (client.OrderID != null)
+        {
+            client.OrderID = client.OrderID + ", " + this.OrderID;
+        }
+        else
+        {
+            client.OrderID = OrderID;
+        }
 
         orders.Add(this);
         client.AddOrder(this);
