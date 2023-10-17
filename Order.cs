@@ -9,11 +9,11 @@
     public double Cost { get; set; } // Вартість
     public string OrderID { get; set; } // ID замовлення *(у клієнта)
 
-    private static int orderAmount = 0;
-    private static List<Order> orders = new List<Order>();
+    private static int orderAmount = 0; // Номер замовлення (потім використовується)
+    private static List<Order> orders = new List<Order>(); // Список всіх замовлень
     private static List<Order> repairOrders = new List<Order>(); // Список замовлень на ремонт
     private static List<Order> installOrders = new List<Order>(); // Список замовлень на встановлення
-    private static List<Specialist> specialists = new List<Specialist>(); // Список майстрів
+    private List<Specialist> specialists = new List<Specialist>(); // Список майстрів
 
     // Композиція
     public Specialist MainSpecialist { get; set; } // Головний майстер

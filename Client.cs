@@ -73,6 +73,14 @@
     public void AddOrder(Order order)
     {
         orders.Add(order);
+        if (OrderID != null) // Якщо вже є замовлення
+        {
+            OrderID = OrderID + ", " + order.OrderID;
+        }
+        else
+        {
+            OrderID = order.OrderID;
+        }
     }
 
     override public void Presentation()

@@ -4,7 +4,7 @@ public class Specialist : Person // Майстер (наслідування в�
 {
     // На одного майстра може приходитися лише одне замовлення, але на замовлення може декілька майстрів
     public string BranchName { get; set; } // Назва філіалу
-    public Boolean IsFree { get; set; } = true;
+    public bool IsFree { get; set; } = true;
 
     private Order assignedOrder;
     private static List<Specialist> availableSpecs = new List<Specialist>(); // Статичний список майстрів

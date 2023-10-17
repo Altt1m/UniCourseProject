@@ -21,6 +21,10 @@
     /// <summary>
     /// Виводить інформацію про людину
     /// </summary>
-    public abstract void Show();
+    public void Show()
+    {
+        Console.WriteLine($"ПІБ: {FullName}\n" +
+                          $"Номер телефону: {PhoneNumber}\n");
+    }
 
 }
