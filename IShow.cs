@@ -1,0 +1,4 @@
+﻿interface IShow
+{
+    void Show();
+}

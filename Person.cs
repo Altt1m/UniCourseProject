@@ -1,4 +1,4 @@
-﻿public abstract class Person // Абстрактний клас людини для майстра та клієнта
+﻿public abstract class Person : IShow // Абстрактний клас людини для майстра та клієнта
 {
     public string FullName { get; set; } // ПІБ
     public string PhoneNumber { get; set; } // Номер телефону
@@ -18,10 +18,9 @@
         Console.Write("Номер телефону: "); PhoneNumber = Console.ReadLine();
     }
 
-    public void Show()
-    {
-        Console.WriteLine($"ПІБ: {FullName}\n" +
-                          $"Номер телефону: {PhoneNumber}\n");
-    }
+    /// <summary>
+    /// Виводить інформацію про людину
+    /// </summary>
+    public abstract void Show();
 
 }

@@ -1,4 +1,4 @@
-﻿public class Order // Замовлення на ремонт та встановлення
+﻿public class Order : IShow // Замовлення на ремонт та встановлення
 {
     public string Address { get; set; } // Адреса (береться у клієнта)
     public string ServiceType { get; set; } // Тип послуги (Встановлення/Ремонт)
@@ -54,8 +54,9 @@
         Console.Write("Дата початку: "); DateOfStart = Console.ReadLine();
         Console.Write("Строк роботи (у днях): "); WorkPeriod = Int32.Parse(Console.ReadLine());
         Console.Write("Вартість: "); Cost = Double.Parse(Console.ReadLine());
+
         OrderID = "ORD" + ++orderAmount;
-        if (client.OrderID != null)
+        if (client.OrderID != null) // Якщо вже є замовлення
         {
             client.OrderID = client.OrderID + ", " + this.OrderID;
         }
@@ -104,6 +105,10 @@
                         $"ID: {OrderID}\n");
     }
 
+    /// <summary>
+    /// Повератє список замовлень
+    /// </summary>
+    /// <returns>Список замовлень</returns>
     public static List<Order> GetOrdersList()
     {
         return orders;
@@ -129,7 +134,7 @@
         }
         if (!repairOrders.Any())
         {
-            Console.WriteLine("Немає замовлень на ремонт.");
+            Console.WriteLine("Немає замовлень на ремонт.\n");
         }
     }
 
@@ -153,7 +158,7 @@
         }
         if (!installOrders.Any())
         {
-            Console.WriteLine("Немає замовлень на встановлення.");
+            Console.WriteLine("Немає замовлень на встановлення.\n");
         }
     }
 
@@ -184,7 +189,8 @@
         }
         if (!clients.Any())
         {
-            Console.WriteLine($"Не знайдено жодного клієнта з типом послуги \"{serviceType}\"");
+            Console.Clear();
+            Console.WriteLine($"Не знайдено жодного клієнта з типом послуги \"{serviceType}\"\n");
         }
     }
 
@@ -195,6 +201,7 @@
     /// <returns>Середня вартість замовлень</returns>
     public static double GetAverageOrderCost()
     {
+        Console.Clear();
         return orders.Average(o => o.Cost);
     }
 

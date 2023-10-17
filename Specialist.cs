@@ -1,11 +1,13 @@
-﻿public class Specialist : Person // Майстер (наслідування від Person)
+﻿using System;
+
+public class Specialist : Person // Майстер (наслідування від Person)
 {
     // На одного майстра може приходитися лише одне замовлення, але на замовлення може декілька майстрів
     public string BranchName { get; set; } // Назва філіалу
     public Boolean IsFree { get; set; } = true;
 
     private Order assignedOrder;
-    private static List<Specialist> specs = new List<Specialist>(); // Статичний список майстрів
+    private static List<Specialist> availableSpecs = new List<Specialist>(); // Статичний список майстрів
 
     /// <summary>
     /// Конструктор за замовчуванням
@@ -15,7 +17,7 @@
         Console.Write("Назва філіалу: "); BranchName = Console.ReadLine();
         Console.Clear();
         Console.WriteLine($"Майстер {FullName} доданий.\n");
-        specs.Add(this);
+        availableSpecs.Add(this);
     }
 
     /// <summary>
@@ -29,31 +31,32 @@
         FullName = fN;
         PhoneNumber = pNum;
         BranchName = bN;
-        specs.Add(this);
+        availableSpecs.Add(this);
     }
 
     public void Show()
     {
-        string occupied = "Ні";
-        if (!IsFree)
-        {
-            occupied = "Так";
-        }
         Console.WriteLine($"ПІБ: {FullName}\n" +
                           $"Номер телефону: {PhoneNumber}\n" +
-                          $"Назва філіалу: {BranchName}\n" +
-                          $"Зайнятий: {occupied}\n");
+                          $"Назва філіалу: {BranchName}\n");
     }
 
+    /// <summary>
+    /// Повертає список доступних майстрів
+    /// </summary>
+    /// <returns>Список вільних майстрів</returns>
     public static List<Specialist> GetSpecsList()
     {
-        return specs;
+        return availableSpecs;
     }
 
-    public static void ShowSpecsList()
+    /// <summary>
+    /// Виводить список доступних майстрів
+    /// </summary>
+    public static void ShowAvailableSpecsList()
     {
         int index = 1;
-        foreach (Specialist spec in specs)
+        foreach (Specialist spec in availableSpecs)
         {
             if (spec.IsFree)
             {
@@ -64,7 +67,20 @@
         }
         if (index == 1)
         {
+            Console.Clear();
+            Console.WriteLine("Вільні майстри наразі відсутні, спробуйте додати нових.\n");
+        }
+    }
 
+    /// <summary>
+    /// Видаляє майстра зі списку доступних
+    /// </summary>
+    /// <param name="specialist">Спеціаліст (об'єкт)</param>
+    public static void RemoveFromSpecsList(Specialist specialist)
+    {
+        if (availableSpecs.Contains(specialist))
+        {
+            availableSpecs.Remove(specialist);
         }
     }
 

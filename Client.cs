@@ -43,11 +43,18 @@
                         $"ID замовлення: {OrderID}\n");
     }
 
+    /// <summary>
+    /// Повертає список клієнтів
+    /// </summary>
+    /// <returns>Список клієнтів</returns>
     public static List<Client> GetClientsList()
     {
         return clients;
     }
 
+    /// <summary>
+    /// Виводить список клієнтів
+    /// </summary>
     public static void ShowClientsList()
     {
         int index = 1;
