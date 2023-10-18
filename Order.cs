@@ -95,7 +95,7 @@
     /// </summary>
     public void Show()
     {
-        Console.WriteLine($"\nАдреса: {Address}\n" +
+        Console.WriteLine($"Адреса: {Address}\n" +
                         $"Вид послуги: {ServiceType}\n" +
                         $"Назва прибору: {DeviceName}\n" +
                         $"Виробник прибору: {DeviceVendor}\n" +

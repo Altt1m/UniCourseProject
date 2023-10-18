@@ -185,7 +185,7 @@ namespace Course_Project
                             }
                             else
                             {
-                                Console.WriteLine($"Середня вартість всіх замовлень ({Order.GetOrdersList().Count}) становить {Order.GetAverageOrderCost()}.\n");
+                                Console.WriteLine($"Середня вартість всіх замовлень ({Order.GetOrdersList().Count}) становить {Order.GetAverageOrderCost()} грн.\n");
                                 break;
                             }
                             
