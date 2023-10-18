@@ -214,16 +214,7 @@ namespace Course_Project
                                 Console.WriteLine($"Найдорожчим є замовлення {Order.GetMostExpensiveOrder().OrderID}.\n" +
                                                   $"Його вартість складає {Order.GetMostExpensiveOrder().Cost} грн.\n");
                                 break;
-                            }
-  
-                            
-                        
-                        default:
-                            Console.Clear();
-                            Console.WriteLine("Not yet developed.\n");
-                            break;
-
-                        
+                            }     
 
                     } // Світч
                     continue; // Повтор головного циклу
